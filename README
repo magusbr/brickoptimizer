@@ -1,0 +1,22 @@
+brickoptimizer
+==============
+
+brickoptimizer - optimize the price of Bricklinks Wanted List
+
+
+This piece of software is intended to be used by the Lego™ aficionados.
+
+It uses Bricklink (http://www.bricklink.com) Wanted Lists to generate forms so you can buy bricks in the
+least number of stores as possible paying the least price you can get.
+
+Libraries needed to run Brickoptimizer:
+libtidy (http://tidy.sourceforge.net)
+libcurl (http://curl.haxx.se/libcurl/c)
+libcurl is necessary to retrieve Bricklink web pages whilst libtidy
+is responsible for parsing HTML pages.
+
+The idea is based on Brickficiency (https://code.google.com/p/brickficiency) which intends to do the same
+thing (and it do it perfectly) but somehow didn't work on my 64 bits computer because the binary produced
+from Perl language has some restrictions.
+
+Feel free to ask, change, complain, curse or improve. I'd be glad to hear from you.
