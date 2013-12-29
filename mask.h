@@ -22,7 +22,7 @@ Brickoptimizer - optimize the price of Bricklinks Wanted List
 #define __INCLUDE_MASK_H__
 #include <inttypes.h>
 
-#define MASK_T_SIZE	4
+#define MASK_T_SIZE	10
 typedef struct mask_t
 {
 	uint64_t m[MASK_T_SIZE];

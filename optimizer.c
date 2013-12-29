@@ -436,7 +436,7 @@ int store_best_match (int fixed_index, mask_t match, store_t* cur_store)
 			//unless a best price is already found
 			if (best_price)
 			{
-				printf("Found best price: %f for the following stores:\n", best_price);
+				printf("Found best price: %.2f for the following stores:\n", best_price);
 				store_print_best_match(match_best, num_fixed);
 				
 				free(match_last);

@@ -51,7 +51,7 @@ int login(char* username, char* password)
 {
   if(curl) {
     char* redir_url;
-	char *data="a=a&logFrmFlag=Y&frmUsername=";
+	char data[256] = "a=a&logFrmFlag=Y&frmUsername=";
 	strcat(data, username);
 	strcat(data, "&frmPassword=");
 	strcat(data, password);
