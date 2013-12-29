@@ -147,7 +147,7 @@ void brick_process()
 		
 		num_processed = 0;
 		wl = wanted_list_iterator();
-		//FDBGLIST = fopen("insert.c", "w");
+		
 		while (wl)
 		{
 			if ((wanted_list_part_url(wl) == NULL) || (wanted_list_part_qty(wl) == RC_ERR) || (wanted_list_part_code(wl) == NULL))
@@ -183,7 +183,6 @@ void brick_process()
 			printf("Something went wrong. Could not find the best match\n");
 		}
 		DBGPRINT("num stores: %i\nnum items: %i\n",store_num(), num_items);
-		//fclose(FDBGLIST);
 		
 		wanted_list_clear();
 		store_end();
@@ -192,9 +191,9 @@ void brick_process()
  
 int main(int argc, char **argv )
 { 
-	if (argc < 4)
+	if (argc < 5)
 	{
-		printf("usage: brickoptimizer <username> <password> <wanted list name>\n");
+		printf("usage: brickoptimizer <username> <password> <wanted list name> <session_id>\n");
 		return 0;
 	}
 	
@@ -227,7 +226,8 @@ int main(int argc, char **argv )
 	
 	if (login(argv[1], argv[2]) == RC_LOGIN_OK)
 	{
-		strcpy(wanted_list_name, argv[3]);
+		wanted_list_name = argv[3];
+		session_id = argv[4];
 		brick_process();
 	}
 	else

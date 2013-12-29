@@ -65,7 +65,7 @@ int form_generator_init(form_generator_t* fm, int num_items, long store_id)
 	fm->ptr_rq_str = fm->rq_str;
 	
 	fprintf(fm->form_file, "%s\n", form_header);
-	fprintf(fm->form_file, "<FORM METHOD=\"POST\" ACTION=\"http://www.bricklink.com/storeCart.asp?a=d&h=%lu&b=-15862789\">\n", store_id);
+	fprintf(fm->form_file, "<FORM METHOD=\"POST\" ACTION=\"http://www.bricklink.com/storeCart.asp?a=d&h=%lu&b=%s\">\n", store_id, session_id);
 	
 	return RC_OK;
 }

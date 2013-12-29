@@ -47,6 +47,7 @@ Brickoptimizer - optimize the price of Bricklinks Wanted List
 FILE* FDBGLIST;
 
 char* wanted_list_name;
+char* session_id;
 
 int parse_wanted(TidyDoc doc, TidyNode tnod);
 int parse_price(TidyDoc doc, TidyNode tnod, wanted_list_t* wl);

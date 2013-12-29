@@ -2,6 +2,8 @@ curl-7.33.0-devel-mingw32/
 depends/
 tidy/
 *.dll
+*.o
+*.exe
 
 #################
 ## Eclipse
