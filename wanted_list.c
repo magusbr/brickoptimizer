@@ -129,6 +129,20 @@ int wanted_list_part_qty(wanted_list_t* wl)
 		return RC_ERR;
 }
 
+int wanted_list_total_qty()
+{
+	int size = 0;
+	wanted_list_t* wl_tmp = wanted_list;
+	
+	while (wl_tmp)
+	{
+		size += wl_tmp->wl_qty;
+		wl_tmp = wl_tmp->wl_nxt;
+	}
+	
+	return size;
+}
+
 int wanted_list_size()
 {
 	int size = 0;

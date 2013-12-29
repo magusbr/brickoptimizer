@@ -360,7 +360,7 @@ float store_best_price (int match_count)
 
 int store_best_match (int fixed_index, mask_t match, store_t* cur_store)
 {
-	static char indent[10000000] = "";
+	static char indent[100000] = "";
 	static char* ptr_indent = &indent[0];
 	static int num_fixed = 1;
 	static float best_price = 0;

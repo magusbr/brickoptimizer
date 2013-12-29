@@ -142,6 +142,14 @@ void brick_process()
 	else
 	{
 		num_items = wanted_list_size();
+		sum_items = wanted_list_total_qty();
+		
+		if (sum_items > 64*MASK_T_SIZE)
+		{
+			printf("Number of items [%i] is greater than mask limit [%i].\nPlease increase the mask array size an recompile.\n", sum_items, 64*MASK_T_SIZE);
+			return;
+		}
+		
 		printf("Wanted List items parsed. Calculating price...\n");
 		store_init(num_items);
 		
@@ -166,7 +174,6 @@ void brick_process()
 			}
 			
 			num_processed++;
-			sum_items += wanted_list_part_qty(wl);
 			
 			wl = wanted_list_iterator_next(wl);
 		}

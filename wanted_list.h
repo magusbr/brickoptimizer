@@ -43,6 +43,7 @@ int wanted_list_part_color(wanted_list_t* wl);
 int wanted_list_part_qty(wanted_list_t* wl);
 int wanted_list_size();
 int wanted_list_print_store_url_by_index(int index, long store_id, long store_item_id);
+int wanted_list_total_qty();
 
 
 #endif
