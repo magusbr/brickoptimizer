@@ -144,7 +144,7 @@ void brick_process()
 		num_items = wanted_list_size();
 		sum_items = wanted_list_total_qty();
 		
-		if (sum_items > 64*MASK_T_SIZE)
+		if (num_items > 64*MASK_T_SIZE)
 		{
 			printf("Number of items [%i] is greater than mask limit [%i].\nPlease increase the mask array size an recompile.\n", sum_items, 64*MASK_T_SIZE);
 			return;
