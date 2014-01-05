@@ -140,7 +140,7 @@ void brick_process()
   
 #ifdef DEBUG
 	FDBGLIST = fopen("insert.c", "w");
-	fprintf(FDBGLIST, "insert() {\n");
+	fprintf(FDBGLIST, "void insert() {\n");
 #endif
 
 	printf("Logged in...\n");
@@ -193,6 +193,10 @@ void brick_process()
 		
 		printf("All lots [%i] with [%i] items price calculated. Lucky you!\n", num_items, sum_items);
 
+#ifdef DEBUG
+		fprintf(FDBGLIST, "}\n");
+		fclose(FDBGLIST);
+#endif
 		
 		mask_t mask = {{0}};
 		if (store_best_match (0, mask, NULL) == RC_BEST_MATCH)
@@ -208,11 +212,6 @@ void brick_process()
 		wanted_list_clear();
 		store_end();
 	}
-
-#ifdef DEBUG
-	fprintf(FDBGLIST, "}\n");
-	fclose(FDBGLIST);
-#endif
 
 }
  
