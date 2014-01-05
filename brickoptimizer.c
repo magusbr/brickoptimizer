@@ -134,6 +134,11 @@ void brick_process()
 	int num_processed;
 	wanted_list_t* wl;
   
+#ifdef DEBUG
+	FDBGLIST = fopen("insert.c", "w");
+	fprintf(FDBGLIST, "insert() {\n");
+#endif
+
 	printf("Logged in...\n");
 	if (get_wanted_list() != RC_OK)
 	{
@@ -155,7 +160,7 @@ void brick_process()
 		
 		num_processed = 0;
 		wl = wanted_list_iterator();
-		
+
 		while (wl)
 		{
 			if ((wanted_list_part_url(wl) == NULL) || (wanted_list_part_qty(wl) == RC_ERR) || (wanted_list_part_code(wl) == NULL))
@@ -179,6 +184,7 @@ void brick_process()
 		}
 		
 		printf("All lots [%i] with [%i] items price calculated. Lucky you!\n", num_items, sum_items);
+
 		
 		mask_t mask = {{0}};
 		if (store_best_match (0, mask, NULL) == RC_BEST_MATCH)
@@ -194,6 +200,12 @@ void brick_process()
 		wanted_list_clear();
 		store_end();
 	}
+
+#ifdef DEBUG
+	fprintf(FDBGLIST, "}\n");
+	fclose(FDBGLIST);
+#endif
+
 }
  
 int main(int argc, char **argv )
@@ -231,6 +243,8 @@ int main(int argc, char **argv )
 
 	tidyOptSetBool( tdoc, TidyMark, no);
 	
+	//insert();
+
 	if (login(argv[1], argv[2]) == RC_LOGIN_OK)
 	{
 		wanted_list_name = argv[3];

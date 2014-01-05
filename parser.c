@@ -80,6 +80,9 @@ int parse_wanted(TidyDoc doc, TidyNode tnod)
 			sprintf(part_url, "http://www.bricklink.com/catalogPG.asp?P=%s&colorID=%i", part_code, part_color);
 			if (wanted_list_new(part_code, part_url, part_qty, part_color) != RC_OK)
 				return RC_ERR;
+#ifdef DEBUG
+			fprintf(FDBGLIST, "wanted_list_new(%s, %s, %i, %i);\n", part_code, part_url, part_qty, part_color);
+#endif
 		}
 	  }
 	  
@@ -169,8 +172,10 @@ int parse_price(TidyDoc doc, TidyNode tnod, wanted_list_t* wl)
 					return RC_ERR;
 				if (store_add_item(store_id, wanted_list_iterator_index(wl), store_item_id, store_item_price * wanted_list_part_qty(wl)) != RC_OK)
 					return RC_ERR;
-				//fprintf(FDBGLIST, "store_add(%li);\n",store_id);
-				//fprintf(FDBGLIST, "store_add_item(%li, %i, %0.2f);\n",store_id, wanted_list_iterator_index(wl), store_item_price);
+#ifdef DEBUG
+				fprintf(FDBGLIST, "store_add(%li);\n",store_id);
+				fprintf(FDBGLIST, "store_add_item(%li, %i, %0.2f);\n",store_id, wanted_list_iterator_index(wl), store_item_price);
+#endif
 			}
 		}
 	  }
