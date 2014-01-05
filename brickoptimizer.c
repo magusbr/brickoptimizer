@@ -95,6 +95,7 @@ int get_wanted_list()
       fprintf(stderr, "%s\n", curl_errbuf);
  
   }
+
   return RC_ERR;
 }
  
@@ -148,6 +149,10 @@ void brick_process()
 	{
 		num_items = wanted_list_size();
 		sum_items = wanted_list_total_qty();
+
+#ifdef DEBUG
+		fprintf(FDBGLIST, "store_init(%i);\n", num_items);
+#endif
 		
 		if (num_items > 64*MASK_T_SIZE)
 		{
