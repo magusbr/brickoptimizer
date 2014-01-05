@@ -255,8 +255,7 @@ int main(int argc, char **argv )
 	insert();
 	store_end();
 	wanted_list_clear();
-#endif
-
+#else
 	if (login(argv[1], argv[2]) == RC_LOGIN_OK)
 	{
 		wanted_list_name = argv[3];
@@ -267,6 +266,7 @@ int main(int argc, char **argv )
 	{
 		printf("Login failed.\nPlease check your username and password.\n");
 	}
+#endif
   
   curl_easy_cleanup(curl);
 
