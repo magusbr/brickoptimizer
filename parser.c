@@ -81,7 +81,7 @@ int parse_wanted(TidyDoc doc, TidyNode tnod)
 			if (wanted_list_new(part_code, part_url, part_qty, part_color) != RC_OK)
 				return RC_ERR;
 #ifdef DEBUG
-			fprintf(FDBGLIST, "wanted_list_new(%s, %s, %i, %i);\n", part_code, part_url, part_qty, part_color);
+			fprintf(FDBGLIST, "wanted_list_new(\"%s\", %s, %i, %i);\n", part_code, part_url, part_qty, part_color);
 #endif
 		}
 	  }

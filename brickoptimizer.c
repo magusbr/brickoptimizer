@@ -29,6 +29,9 @@ set PATH=C:\Users\gustavo\Downloads\CodeBlocks-EP\MinGW\bin;%PATH%
 #include "wanted_list.h"
 #include "optimizer.h"
 #include "mask.h"
+#ifdef DEBUG
+#include "insert.c"
+#endif
 
 CURL *curl;
 CURLcode res;
@@ -248,7 +251,11 @@ int main(int argc, char **argv )
 
 	tidyOptSetBool( tdoc, TidyMark, no);
 	
-	//insert();
+#if 0
+	insert();
+	store_end();
+	wanted_list_clear();
+#endif
 
 	if (login(argv[1], argv[2]) == RC_LOGIN_OK)
 	{
