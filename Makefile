@@ -17,9 +17,9 @@
 #   along with this program; If not, see <http://www.gnu.org/licenses/>.
 
 RM=del
-#CC=gcc -g -DDEBUG
 CC=gcc
 CFLAGS=-c -Wall -O3
+#CFLAGS=-c -Wall -g -DDEBUG
 INCS=-IC:\Temp\brickoptimizer\curl-7.33.0-devel-mingw32\include -IC:\Temp\brickoptimizer\tidy\include 
 LDFLAGS=-O3 -Wl,--enable-stdcall-fixup -LC:\Temp\brickoptimizer\curl-7.33.0-devel-mingw32\lib -LC:\Temp\brickoptimizer\tidy\lib
 LIBS=-lcurldll -ltidy

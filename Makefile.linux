@@ -17,9 +17,9 @@
 #   along with this program; If not, see <http://www.gnu.org/licenses/>.
 
 RM=del
-#CC=gcc -g -DDEBUG
 CC=gcc
-CFLAGS=-c -Wall -O3
+#CFLAGS=-c -Wall -O3
+CFLAGS=-c -Wall -g -DDEBUG
 INCS=-Itidy/tidy/include 
 LDFLAGS=-O3 -Wall -Ltidy/tidy/lib
 LIBS=-lcurl -ltidy
