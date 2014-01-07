@@ -106,9 +106,10 @@ int parse_wanted(TidyDoc doc, TidyNode tnod)
 
 int parse_price(TidyDoc doc, TidyNode tnod, wanted_list_t* wl)
 {
-	static int found_link=0;
+	static int found_link=-1;
 	TidyNode child;
 	char str[256];
+	char trash[256];
 	static char store_item_url[1024];
 	static int store_item_qty;
 	static float store_item_price;
@@ -143,10 +144,11 @@ int parse_price(TidyDoc doc, TidyNode tnod, wanted_list_t* wl)
 
 			if (strstr((char *)buf.bp,"Currently Available")) found_prices=1;
 			if (strstr((char *)buf.bp,"Total Lots")) found_prices=0;
-			if (found_prices && buf.bp && found_link)
+			if (found_prices && buf.bp && (found_link >= 0))
 			{
 				found_link--;
 				strncpy(str, (char*)buf.bp, buf.size);
+				str[buf.size] = 0; //NULL terminating (EOS)
 
 				//second time it is the qty
 				if (found_link == 1)
@@ -160,7 +162,8 @@ int parse_price(TidyDoc doc, TidyNode tnod, wanted_list_t* wl)
 					{
 						found_link = -1;
 
-						sscanf(str, "&nbsp;%[^&]&nbsp;%f", store_currency, &store_item_price);
+						//trash is needed because sometimes there is a "$" after second nbsp;
+						sscanf(str, "&nbsp;%[^&]%[^1234567890]%f", store_currency, trash, &store_item_price);
 
 						sscanf(store_item_url, "/store.asp?sID=%li&itemID=%i", &store_id, &store_item_id);
 

@@ -252,13 +252,11 @@ int main(int argc, char **argv )
 	tidyOptSetBool( tdoc, TidyMark, no);
 	
 #if 0
-	/*
 	insert();
 	mask_t mask = {{0}};
 	store_best_match (0, mask, NULL);
 	store_end();
 	wanted_list_clear();
-	*/
 #else
 	if (login(argv[1], argv[2]) == RC_LOGIN_OK)
 	{

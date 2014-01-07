@@ -18,10 +18,10 @@
 
 RM=rm
 CC=gcc
-#CFLAGS=-c -Wall -O3
-CFLAGS=-c -Wall -g -DDEBUG
+CFLAGS=-c -Wall -O3
+#CFLAGS=-c -Wall -g -DDEBUG
 INCS=-Itidy/tidy/include 
-LDFLAGS=-O3 -Wall -Ltidy/tidy/lib
+LDFLAGS=-Wall -Ltidy/tidy/lib
 LIBS=-lcurl -ltidy
 SOURCES=brickoptimizer.c optimizer.c parser.c wanted_list.c mask.c form_generator.c
 OBJECTS=$(SOURCES:.c=.o)
