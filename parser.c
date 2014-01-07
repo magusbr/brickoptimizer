@@ -158,6 +158,8 @@ int parse_price(TidyDoc doc, TidyNode tnod, wanted_list_t* wl)
 				{
 					if (store_item_qty >= wanted_list_part_qty(wl))
 					{
+						found_link = -1;
+
 						sscanf(str, "&nbsp;%[^&]&nbsp;%f", store_currency, &store_item_price);
 
 						sscanf(store_item_url, "/store.asp?sID=%li&itemID=%i", &store_id, &store_item_id);

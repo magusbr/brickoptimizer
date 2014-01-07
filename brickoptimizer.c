@@ -75,60 +75,61 @@ int login(char* username, char* password)
 
 int get_wanted_list()
 {
-  if(curl) {
-    //curl_easy_setopt(curl, CURLOPT_URL, "file://BrickLink My Wanted List.htm");
-	curl_easy_setopt(curl, CURLOPT_URL, "http://www.bricklink.com/wantedDetail.asp?viewFrom=wantedSearch&wantedSize=10000");
-    
-    /* Perform the request, res will get the return code */ 
-    res = curl_easy_perform(curl);
-    if ( !res ) {
-      res = tidyParseBuffer(tdoc, &docbuf); /* parse the input */ 
-      if ( res >= 0 ) {
-        res = tidyCleanAndRepair(tdoc); /* fix any problems */ 
-        if ( res >= 0 ) {
-          res = tidyRunDiagnostics(tdoc); /* load tidy error buffer */ 
-          if ( res >= 0 ) {
-            if (parse_wanted( tdoc, tidyGetRoot(tdoc)) == RC_OK)
-				return RC_OK;
-          }
-        }
-      }
-    }
-    else
-      fprintf(stderr, "%s\n", curl_errbuf);
- 
-  }
+	if(curl) {
+		//curl_easy_setopt(curl, CURLOPT_URL, "file://BrickLink My Wanted List.htm");
+		curl_easy_setopt(curl, CURLOPT_URL, "http://www.bricklink.com/wantedDetail.asp?viewFrom=wantedSearch&wantedSize=10000");
 
-  return RC_ERR;
+		/* Perform the request, res will get the return code */ 
+		res = curl_easy_perform(curl);
+		if ( !res ) {
+			res = tidyParseBuffer(tdoc, &docbuf); /* parse the input */ 
+			if ( res >= 0 ) {
+				res = tidyCleanAndRepair(tdoc); /* fix any problems */ 
+				if ( res >= 0 ) {
+					res = tidyRunDiagnostics(tdoc); /* load tidy error buffer */ 
+					if ( res >= 0 ) {
+						if (parse_wanted( tdoc, tidyGetRoot(tdoc)) == RC_OK)
+							return RC_OK;
+					}
+				}
+			}
+		}
+		else
+			fprintf(stderr, "%s\n", curl_errbuf);
+
+	}
+
+	return RC_ERR;
 }
  
 int get_item_price(wanted_list_t* wl)
 { 
-  if(curl) {
-    curl_easy_setopt(curl, CURLOPT_URL, wanted_list_part_url(wl));
-    //curl_easy_setopt(curl, CURLOPT_URL, "file://BrickLink Price Guide - Part 30602 in Black Color.htm");
-	//curl_easy_setopt(curl, CURLOPT_URL, "http://www.bricklink.com/catalogPG.asp?P=41770&colorID=86");
+	if(curl) {
+		fprintf(FDBGLIST, "//%s\n", wanted_list_part_url(wl));
+		curl_easy_setopt(curl, CURLOPT_URL, wanted_list_part_url(wl));
+		//curl_easy_setopt(curl, CURLOPT_URL, "file://29315910.htm");
+		//curl_easy_setopt(curl, CURLOPT_URL, "http://www.bricklink.com/catalogPG.asp?P=41770&colorID=86");
     
-    /* Perform the request, res will get the return code */ 
-    res = curl_easy_perform(curl);
-    if ( !res ) {
-      res = tidyParseBuffer(tdoc, &docbuf); /* parse the input */ 
-      if ( res >= 0 ) {
-        res = tidyCleanAndRepair(tdoc); /* fix any problems */ 
-        if ( res >= 0 ) {
-          res = tidyRunDiagnostics(tdoc); /* load tidy error buffer */ 
-          if ( res >= 0 ) {
-			if (parse_price(tdoc, tidyGetRoot(tdoc), wl) == RC_OK)
-				return RC_OK;
-          }
-        }
-      }
-    }
-    else
-      fprintf(stderr, "%s\n", curl_errbuf);
+		/* Perform the request, res will get the return code */ 
+		res = curl_easy_perform(curl);
+		if ( !res ) {
+			res = tidyParseBuffer(tdoc, &docbuf); /* parse the input */ 
+			if ( res >= 0 ) {
+				res = tidyCleanAndRepair(tdoc); /* fix any problems */ 
+				if ( res >= 0 ) {
+					res = tidyRunDiagnostics(tdoc); /* load tidy error buffer */ 
+					if ( res >= 0 ) {
+						if (parse_price(tdoc, tidyGetRoot(tdoc), wl) == RC_OK)
+							return RC_OK;
+					}
+				}
+			}
+		}
+		else
+			fprintf(stderr, "%s\n", curl_errbuf);
  
-  }
-  return RC_ERR;
+	}
+	return RC_ERR;
 }
 
 void brick_process()
@@ -251,9 +252,13 @@ int main(int argc, char **argv )
 	tidyOptSetBool( tdoc, TidyMark, no);
 	
 #if 0
+	/*
 	insert();
+	mask_t mask = {{0}};
+	store_best_match (0, mask, NULL);
 	store_end();
 	wanted_list_clear();
+	*/
 #else
 	if (login(argv[1], argv[2]) == RC_LOGIN_OK)
 	{
