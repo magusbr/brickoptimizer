@@ -48,6 +48,7 @@ FILE* FDBGLIST;
 
 char* wanted_list_name;
 char* session_id;
+int duplicated;
 
 int parse_wanted(TidyDoc doc, TidyNode tnod);
 int parse_price(TidyDoc doc, TidyNode tnod, wanted_list_t* wl);

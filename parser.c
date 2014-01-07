@@ -38,6 +38,7 @@ int parse_wanted(TidyDoc doc, TidyNode tnod)
 	char part_url[256];
 	TidyNode child;
 	char* attr_value;
+	int rc;
   
 	for ( child = tidyGetChild(tnod); child; child = tidyGetNext(child) )
 	{
@@ -78,8 +79,16 @@ int parse_wanted(TidyDoc doc, TidyNode tnod)
 					DBGPRINT("%s(%i): http://www.bricklink.com/catalogPG.asp?P=%s&colorID=%i\n", list_name, part_qty, part_code, part_color);
 
 					sprintf(part_url, "http://www.bricklink.com/catalogPG.asp?P=%s&colorID=%i", part_code, part_color);
-					if (wanted_list_new(part_code, part_url, part_qty, part_color) != RC_OK)
-						return RC_ERR;
+					if ((rc = wanted_list_new(part_code, part_url, part_qty, part_color)) != RC_OK)
+					{
+						if (rc == RC_EXISTS)
+						{
+							printf("WARNING: Wanted List has duplicated lot. Added items to same lot.\n");
+							duplicated++;
+						}
+						else
+							return RC_ERR;
+					}
 #ifdef DEBUG
 					fprintf(FDBGLIST, "wanted_list_new(\"%s\", \"%s\", %i, %i);\n", part_code, part_url, part_qty, part_color);
 #endif

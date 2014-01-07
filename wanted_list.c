@@ -31,6 +31,18 @@ int iterator_index;
 int wanted_list_new(char* code, char* url, int qty, int color)
 {
 	wanted_list_t* wl_tmp = NULL;
+	//verify if item already exists
+	wl_tmp = wanted_list;
+	while (wl_tmp)
+	{
+		if (!strcmp(wl_tmp->wl_cod, code) && !strcmp(wl_tmp->wl_url, url) && (wl_tmp->wl_col == color))
+		{
+			wl_tmp->wl_qty += qty;
+			return RC_EXISTS;
+		}
+		wl_tmp = wl_tmp->wl_nxt;
+	}
+	
 	wl_tmp = calloc(1, sizeof(wanted_list_t));
 	if (!wl_tmp) return RC_ERR_MALLOC;
 	

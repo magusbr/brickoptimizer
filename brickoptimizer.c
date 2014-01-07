@@ -140,6 +140,7 @@ void brick_process()
 	int sum_items = 0;
 	int num_processed;
 	wanted_list_t* wl;
+	duplicated = 0;
   
 #ifdef DEBUG
 	FDBGLIST = fopen("insert.c", "w");
@@ -195,6 +196,9 @@ void brick_process()
 		}
 		
 		printf("All lots [%i] with [%i] items price calculated. Lucky you!\n", num_items, sum_items);
+		
+		if (duplicated)
+			printf("[%i] duplicated lots were fixed\n", duplicated);
 
 #ifdef DEBUG
 		fprintf(FDBGLIST, "}\n");
