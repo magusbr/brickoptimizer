@@ -44,33 +44,35 @@ TidyBuffer tidy_errbuf = {0};
 /* curl write callback, to fill tidy's input buffer...  */ 
 size_t write_cb( char *in, size_t size, size_t nmemb, void *out)
 {
-  uint r;
-  r = size * nmemb;
-  tidyBufAppend( (TidyBuffer*)out, in, r );
-  return(r);
+	uint r;
+	r = size * nmemb;
+	tidyBufAppend( (TidyBuffer*)out, in, r );
+
+	return(r);
 }
 
 int login(char* username, char* password)
 {
-  if(curl) {
-    char* redir_url;
-	char data[256] = "a=a&logFrmFlag=Y&frmUsername=";
-	strcat(data, username);
-	strcat(data, "&frmPassword=");
-	strcat(data, password);
-	curl_easy_setopt(curl, CURLOPT_URL, "https://www.bricklink.com/login.asp?logInTo=&logFolder=p&logSub=w");
-	curl_easy_setopt(curl, CURLOPT_POSTFIELDS, data);
+	if(curl) {
+		char* redir_url;
+		char data[256] = "a=a&logFrmFlag=Y&frmUsername=";
+		strcat(data, username);
+		strcat(data, "&frmPassword=");
+		strcat(data, password);
+		curl_easy_setopt(curl, CURLOPT_URL, "https://www.bricklink.com/login.asp?logInTo=&logFolder=p&logSub=w");
+		curl_easy_setopt(curl, CURLOPT_POSTFIELDS, data);
 
-    res = curl_easy_perform(curl);
-    if ( !res ) {
-	  curl_easy_getinfo(curl, CURLINFO_EFFECTIVE_URL, &redir_url);
-	  if (!strcmp(redir_url,"https://www.bricklink.com/pageRedirect.asp?p=my.asp"))
-		return RC_LOGIN_OK;
-    }
-    else
-      fprintf(stderr, "%s\n", curl_errbuf);
-  }
-  return RC_LOGIN_ERR;
+		res = curl_easy_perform(curl);
+		if ( !res ) {
+			curl_easy_getinfo(curl, CURLINFO_EFFECTIVE_URL, &redir_url);
+			if (!strcmp(redir_url,"https://www.bricklink.com/pageRedirect.asp?p=my.asp"))
+				return RC_LOGIN_OK;
+		}
+		else
+			fprintf(stderr, "%s\n", curl_errbuf);
+	}
+
+	return RC_LOGIN_ERR;
 }
 
 int get_wanted_list()
