@@ -105,7 +105,9 @@ int get_wanted_list()
 int get_item_price(wanted_list_t* wl)
 { 
 	if(curl) {
+#ifdef DEBUG
 		fprintf(FDBGLIST, "//%s\n", wanted_list_part_url(wl));
+#endif
 		curl_easy_setopt(curl, CURLOPT_URL, wanted_list_part_url(wl));
 		//curl_easy_setopt(curl, CURLOPT_URL, "file://29315910.htm");
 		//curl_easy_setopt(curl, CURLOPT_URL, "http://www.bricklink.com/catalogPG.asp?P=41770&colorID=86");
