@@ -113,6 +113,31 @@ int parse_wanted(TidyDoc doc, TidyNode tnod)
 	return RC_OK;
 }
 
+int parse_item_number(char* str)
+{
+	int i = 0;
+	int comma = 0;
+	char tmp[256];
+	
+	sscanf(str, "%[1234567890,]", tmp);
+
+	i = 0;
+	while (i < strlen(tmp)-comma)
+	{
+		if (comma)
+			tmp[i] = tmp[i+comma];
+		if (tmp[i] == ',')
+		{
+			comma++;
+			tmp[i] = tmp[i+comma];
+		}
+		i++;
+	}
+	tmp[i] = 0;
+	
+	return atoi(tmp);
+}
+
 int parse_price(TidyDoc doc, TidyNode tnod, wanted_list_t* wl)
 {
 	static int found_link=-1;
@@ -162,7 +187,7 @@ int parse_price(TidyDoc doc, TidyNode tnod, wanted_list_t* wl)
 				//second time it is the qty
 				if (found_link == 1)
 				{
-					store_item_qty = atoi(str);
+					store_item_qty = parse_item_number(str);
 				}
 				//third time it is price
 				else if (found_link == 0)
