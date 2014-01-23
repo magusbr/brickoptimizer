@@ -33,6 +33,10 @@ Brickoptimizer - optimize the price of Bricklinks Wanted List
 /* but when we want to set bits we set from right to left, so we start at the greter indexes */
 /* i.e.: one item in the mask means the bit mask[MASK_T_SIZE-1] = 1 */
 
+#ifdef DEBUG
+mask_t msk_best = {{0}};
+#endif
+
 mask_t mask_bitwise_or(mask_t* m1, mask_t* m2)
 {
 	/* bitwise or each position of the mask array */
@@ -47,6 +51,14 @@ mask_t mask_bitwise_or(mask_t* m1, mask_t* m2)
 	mt.m[7] = m1->m[7] | m2->m[7];
 	mt.m[8] = m1->m[8] | m2->m[8];
 	mt.m[9] = m1->m[9] | m2->m[9];
+	
+#ifdef DEBUG
+	/* get best mask found so far */
+	while ((i < MASK_T_SIZE) && (mt.m[i]) >= msk_best.m[i]) i++;
+	if (i == MASK_T_SIZE)
+		memcpy(msk_best.m, mt.m, sizeof(uint64_t)*MASK_T_SIZE);
+#endif
+
 	return mt;
 }
 
@@ -148,6 +160,25 @@ void mask_bitwise_print(mask_t* ptr)
 	for (i = 0; i < MASK_T_SIZE; i++)
 	{
 		printf("%" PRIu64, ptr->m[i]);
+	}
+	
+	printf("\n");
+}
+
+void mask_bitwise_print_missing(int num_items)
+{
+	int i, j;
+	mask_t the_mask = mask_bitwise_set_bits(num_items);
+	
+	/* loop through all array positions and bits */
+	for (i = MASK_T_SIZE-1; i >= 0; i--)
+	{
+		for (j = 0; j < 64; j++)
+		{
+			/* if objective mask is on and best mask is off, item is missing */
+			if ((the_mask.m[i] & (1ULL << j)) && ((~msk_best.m[i]) & (1ULL << j)))
+				printf("item %i missing\n", ((MASK_T_SIZE-1-i)*64)+(j));
+		}
 	}
 	
 	printf("\n");
