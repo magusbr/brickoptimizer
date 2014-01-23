@@ -22,6 +22,9 @@ Brickoptimizer - optimize the price of Bricklinks Wanted List
 #define __INCLUDE_OPTIMIZER_H__
 #include "mask.h"
 
+//maximum number of stores that we will look for the combination
+#define MAX_STORES 4
+
 typedef struct store_t
 {
 	long id;

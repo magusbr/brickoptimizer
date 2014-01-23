@@ -20,6 +20,7 @@ Brickoptimizer - optimize the price of Bricklinks Wanted List
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 #include <inttypes.h>
 #include "mask.h"
 
@@ -33,12 +34,11 @@ Brickoptimizer - optimize the price of Bricklinks Wanted List
 /* but when we want to set bits we set from right to left, so we start at the greter indexes */
 /* i.e.: one item in the mask means the bit mask[MASK_T_SIZE-1] = 1 */
 
-#ifdef DEBUG
 mask_t msk_best = {{0}};
-#endif
 
 mask_t mask_bitwise_or(mask_t* m1, mask_t* m2)
 {
+	int i = 0;
 	/* bitwise or each position of the mask array */
 	mask_t mt = {{0}};
 	mt.m[0] = m1->m[0] | m2->m[0];
@@ -52,12 +52,10 @@ mask_t mask_bitwise_or(mask_t* m1, mask_t* m2)
 	mt.m[8] = m1->m[8] | m2->m[8];
 	mt.m[9] = m1->m[9] | m2->m[9];
 	
-#ifdef DEBUG
 	/* get best mask found so far */
 	while ((i < MASK_T_SIZE) && (mt.m[i]) >= msk_best.m[i]) i++;
 	if (i == MASK_T_SIZE)
 		memcpy(msk_best.m, mt.m, sizeof(uint64_t)*MASK_T_SIZE);
-#endif
 
 	return mt;
 }

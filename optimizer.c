@@ -451,6 +451,10 @@ int store_best_match (int fixed_index, mask_t match, store_t* cur_store)
 			//reset the mask we have found and increase the number of stores
 			memset(&match, 0, sizeof(mask_t));
 			num_fixed++;
+			
+			/* probably it will loop eternally after that, so let's limit the number of stores */
+			if (num_fixed == MAX_STORES+1) return RC_NOT_FOUND;
+			
 			printf("Trying to match with %i stores\n", num_fixed);
 			cur_store = store;
 		}

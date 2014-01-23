@@ -215,6 +215,7 @@ void brick_process()
 		else
 		{
 			printf("Something went wrong. Could not find the best match\n");
+			mask_bitwise_print_missing(wanted_list_size());
 		}
 		DBGPRINT("num stores: %i\nnum items: %i\n",store_num(), num_items);
 		
@@ -263,6 +264,7 @@ int main(int argc, char **argv )
 	insert();
 	mask_t mask = {{0}};
 	store_best_match (0, mask, NULL);
+	mask_bitwise_print_missing(wanted_list_size());
 	store_end();
 	wanted_list_clear();
 #else
