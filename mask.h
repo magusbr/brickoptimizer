@@ -34,7 +34,7 @@ mask_t mask_bitwise_shift_one_left(int shift);
 mask_t mask_bitwise_shift_mask_left(mask_t* ptr, int shift);
 mask_t mask_bitwise_set_bits(int value);
 void mask_bitwise_print(mask_t* ptr);
-
+void mask_bitwise_print_missing(int num_items);
 
 
 #endif
