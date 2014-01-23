@@ -186,3 +186,21 @@ int wanted_list_print_store_url_by_index(int index, long store_id, long store_it
 	
 	return RC_NOT_FOUND;
 }
+
+char* wanted_list_part_url_by_index(int index)
+{
+	int idx = 0;
+	wanted_list_t* wl_tmp = wanted_list;
+	
+	while (wl_tmp)
+	{
+		if (index == idx)
+		{
+			return wl_tmp->wl_url;
+		}
+		wl_tmp = wl_tmp->wl_nxt;
+		idx++;
+	}
+	
+	return RC_NOT_FOUND;
+}

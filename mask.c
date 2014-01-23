@@ -23,6 +23,7 @@ Brickoptimizer - optimize the price of Bricklinks Wanted List
 #include <string.h>
 #include <inttypes.h>
 #include "mask.h"
+#include "wanted_list.h"
 
 /* the mask size is what regulates the maximum number of items allowed */
 /* if you want to increase this number, just increase the mask size by */
@@ -175,9 +176,7 @@ void mask_bitwise_print_missing(int num_items)
 		{
 			/* if objective mask is on and best mask is off, item is missing */
 			if ((the_mask.m[i] & (1ULL << j)) && ((~msk_best.m[i]) & (1ULL << j)))
-				printf("item %i missing\n", ((MASK_T_SIZE-1-i)*64)+(j));
+				printf("Item [%i] missing: %s\n", ((MASK_T_SIZE-1-i)*64)+(j), wanted_list_part_url_by_index(((MASK_T_SIZE-1-i)*64)+(j)));
 		}
 	}
-	
-	printf("\n");
 }
